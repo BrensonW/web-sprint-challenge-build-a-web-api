@@ -82,6 +82,11 @@ Postman is used to test API's
 
 You are expected to be able to answer questions in these areas. Your responses contribute to your Sprint Challenge grade.
 
+Deployed Site
+
+https://sprint1api.herokuapp.com/
+
+
 ## Instructions
 
 ### Task 1: Project Set Up
