@@ -1,23 +1,29 @@
-const express = require('express');
-const { orWhereNotExists } = require('../dbConfig');
-const data = require('./actionModel');
+const express = require("express");
+const data = require("./actionModel.js");
 const router = express.Router();
 
-router.get('/:id', idVal, async (req, res) => {
-    const { id } = req.params;
-    const { description, notes } = req.body;
-    const insertion = await data.insert({project_id: id, description, notes});
-    res.status(201).json(insertion)
+
+router.get("/", idVal, async (req,res)=>{
+    const {id} = req.params;
+    const response = await data.get(id);
+    res.status(200).json(response);
 });
 
-router.delete('/:id', async (req, res) => {
-    const { id } = req.params;
+router.post("/",idVal, async (req,res)=>{
+    const {id} = req.params;
+    const {description, notes} = req.body;
+    const insertion = await data.insert({project_id: id, description, notes});
+    res.status(201).json(insertion);
+});
+
+router.delete("/:id", async (req,res)=>{
+    const {id} = req.params;
     const removing = await data.remove(id);
-    if (removing) {
-        res.status(200).json(removing);
-    } else {
-        res.status(404).json({message: 'Wrong Id'})
-    }
+   if (removing){
+    res.status(200).json(removing);
+   } else {
+       res.status(404).json({error: "wrong id "})
+   }
 });
 
 router.put("/:id", async (req, res)=>{
@@ -41,5 +47,5 @@ async function idVal (req,res,next){
     };
 }
 
-
 module.exports = router;
+
